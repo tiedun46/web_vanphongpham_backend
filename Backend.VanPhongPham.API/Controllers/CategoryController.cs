@@ -89,6 +89,7 @@ namespace Backend.VanPhongPham.API.Controllers
           {
               return Problem("Entity set 'VanPhongPhamDbContext.Tcategories'  is null.");
           }
+            tcategory.Idcategory = Guid.NewGuid();
             _context.Tcategories.Add(tcategory);
             try
             {

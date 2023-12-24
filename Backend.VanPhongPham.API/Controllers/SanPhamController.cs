@@ -89,6 +89,7 @@ namespace Backend.VanPhongPham.API.Controllers
           {
               return Problem("Entity set 'VanPhongPhamDbContext.TsanPhams'  is null.");
           }
+            tsanPham.IdsanPham = Guid.NewGuid();
             _context.TsanPhams.Add(tsanPham);
             try
             {

@@ -87,6 +87,7 @@ namespace Backend.VanPhongPham.API.Controllers
           {
               return Problem("Entity set 'VanPhongPhamDbContext.Tusers'  is null.");
           }
+            tuser.Iduser = Guid.NewGuid();
             _context.Tusers.Add(tuser);
             try
             {
@@ -107,16 +108,16 @@ namespace Backend.VanPhongPham.API.Controllers
             return CreatedAtAction("GetTuser", new { id = tuser.Iduser }, tuser);
         }
 
-        [HttpPost]
+        [HttpPost("Login")]
         public async Task<ActionResult<Tuser>> LoginAPI(LoginDTO model)
         {
             if (_context.Tusers == null)
             {
-                return Problem("Entity set 'VanPhongPhamDbContext.Tusers'  is null.");
+                return BadRequest("Entity set 'VanPhongPhamDbContext.Tusers'  is null.");
             }
             if(string.IsNullOrEmpty(model.Password) || string.IsNullOrEmpty(model.Email))
             {
-                return Problem("Email or Password  is null.");
+                return BadRequest("Email or Password  is null.");
             }
             var user = await _context.Tusers.FirstOrDefaultAsync(x => x.Email == model.Email && x.Password == model.Password);
             if(user == null)
